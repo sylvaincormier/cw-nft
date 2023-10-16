@@ -1,7 +1,5 @@
 use serde::de::DeserializeOwned;
 use serde::Serialize;
-use crate::state::TokenInfo;
-
 
 use crate::{
     AllNftInfoResponse, ApprovalResponse, ApprovalsResponse, ContractInfoResponse, NftInfoResponse,
@@ -32,28 +30,6 @@ where
         recipient: String,
         token_id: String,
     ) -> Result<Response<C>, Self::Err>;
-
-
-    // Add the missing methods here
-    fn _transfer_nft(
-        &self,
-        deps: DepsMut,
-        env: &Env,
-        info: &MessageInfo,
-        recipient: &str,
-        token_id: &str,
-    ) -> Result<TokenInfo<T>, Self::Err>;
-
-    fn _update_approvals(
-        &self,
-        deps: DepsMut,
-        env: &Env,
-        info: &MessageInfo,
-        spender: &str,
-        token_id: &str,
-        add: bool,
-        expires: Option<Expiration>,
-    ) -> Result<TokenInfo<T>, Self::Err>;
 
     fn send_nft(
         &self,

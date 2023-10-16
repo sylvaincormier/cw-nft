@@ -5,10 +5,7 @@ pub mod msg;
 mod query;
 pub mod state;
 pub mod upgrades;
-pub mod traits;
 
-use serde::{Deserialize, Serialize};
-pub mod state;
 #[cfg(test)]
 mod contract_tests;
 #[cfg(test)]
@@ -28,15 +25,8 @@ pub use cw_ownable::{Action, Ownership, OwnershipError};
 
 use cosmwasm_std::Empty;
 
-#[derive(Clone, Serialize, Deserialize)]
-pub struct Extension {
-    pub artist_name: String,
-    pub album_name: String,
-    pub album_artwork_url: String,
-    pub album_year: u32,
-    pub track_name: String,
-    pub audio_track_url: String,
-}
+// This is a simple type to let us handle empty extensions
+pub type Extension = Option<Empty>;
 
 // Version info for migration
 pub const CONTRACT_NAME: &str = "crates.io:cw721-base";
@@ -74,11 +64,10 @@ pub mod entry {
         deps: DepsMut,
         env: Env,
         info: MessageInfo,
-        msg: ExecuteMsg<Extension>,
+        msg: ExecuteMsg<Extension, Empty>,
     ) -> Result<Response, ContractError> {
         let tract = Cw721Contract::<Extension, Empty, Empty, Empty>::default();
-        tract.execute(deps, env, info, msg.into())
-
+        tract.execute(deps, env, info, msg)
     }
 
     #[cfg_attr(not(feature = "library"), entry_point)]

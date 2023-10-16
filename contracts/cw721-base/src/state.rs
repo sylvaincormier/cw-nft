@@ -3,12 +3,6 @@ use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use std::marker::PhantomData;
 
-// state.rs
-pub struct TokenInfo {
-    // ... define the fields for TokenInfo
-}
-
-
 use cosmwasm_std::{Addr, BlockInfo, CustomMsg, StdResult, Storage};
 
 use cw721::{ContractInfoResponse, Cw721, Expiration};

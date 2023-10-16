@@ -5,7 +5,7 @@ pub use cw721_base::{
     ContractError, Cw721Contract, ExecuteMsg, Extension, InstantiateMsg as Cw721BaseInstantiateMsg,
     MinterResponse,
 };
-pub mod state;
+
 pub mod msg;
 pub mod query;
 pub mod state;
@@ -67,7 +67,7 @@ pub mod entry {
         deps: DepsMut,
         env: Env,
         info: MessageInfo,
-        msg: ExecuteMsg<Extension>,
+        msg: ExecuteMsg<Extension, Empty>,
     ) -> Result<Response, cw721_base::ContractError> {
         let config = CONFIG.load(deps.storage)?;
         match config.admin {

@@ -22,7 +22,7 @@ pub struct InstantiateMsg {
 /// use other control logic in any contract that inherits this.
 #[cw_ownable_execute]
 #[cw_serde]
-pub enum ExecuteMsg<E> {
+pub enum ExecuteMsg<T, E> {
     /// Transfer is a base message to move a token to another account without triggering actions
     TransferNft { recipient: String, token_id: String },
     /// Send is a base message to transfer a token to a contract and trigger an action
@@ -52,15 +52,16 @@ pub enum ExecuteMsg<E> {
 
     /// Mint a new NFT, can only be called by the contract minter
     Mint {
+        /// Unique ID of the NFT
         token_id: String,
+        /// The owner of the newly minter NFT
         owner: String,
+        /// Universal resource identifier for this NFT
+        /// Should point to a JSON file that conforms to the ERC721
+        /// Metadata JSON Schema
         token_uri: Option<String>,
-        artist_name: String,
-        album_name: String,
-        album_artwork_url: String,
-        album_year: u32,
-        track_name: String,
-        audio_track_url: String,
+        /// Any custom extension used by this contract
+        extension: T,
     },
 
     /// Burn an NFT the sender has access to
