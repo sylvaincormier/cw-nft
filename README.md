@@ -1,34 +1,42 @@
-# CosmWasm NFTS
+# README.md
 
-This repo is the official repository to work on all NFT standard and examples
-in the CosmWasm ecosystem. `cw721` and `cw721-base` were moved from
-[`cw-plus`](https://github.com/CosmWasm/cw-plus) to start this repo, but it shall evolve
-as driven by the community's needs.
+## Project Summary
 
-Please feel free to modify `cw721-base` as you need to support these projects and add many extensions
-and additional standards (like [cw-2981](https://github.com/CosmWasm/cw-plus/pull/414)) to meet
-the demands of the various NFT projects springing forth.
+This project is a Rust-based implementation of a Cosmos SDK contract for a NFT (Non-Fungible Token) standard, CW-721. The contract is written to provide a set of functionalities to create, transfer, and manage unique digital assets. These assets can be music tracks, identified by a unique token ID.
 
-## Maintainers
+## Features
 
-This repo is not maintained directly by Confio (although we can provide some code reviews and support),
-but rather by 4 highly active community members working on NFT projects of their own:
+- **Token Minting**: Create new tokens with specified metadata such as artist, album, year, track name, and audio track URL.
+- **Token Burning**: Destroy existing tokens.
+- **Token Transfer**: Transfer tokens between accounts.
+- **Ownership Query**: Query the current owner of a token.
+- **Approval Mechanisms**: Approve and revoke permissions to transfer tokens on behalf of the owner.
+- **State Management**: Maintain and update the contract's state.
+- **Detailed Metadata**: Includes detailed metadata like artist, album, year, and so on for each token.
 
-* [alwin-peng](https://github.com/alwin-peng)
-* [ben2x4](https://github.com/ben2x4)
-* [Callum-A](https://github.com/Callum-A)
-* [ekez](https://github.com/ezekiiel)
-* [JakeHartnell](https://github.com/JakeHartnell)
-* [John Y](https://github.com/yubrew)
-* [orkunkl](https://github.com/orkunkl)
-* [shanev](https://github.com/shanev)
-* [the-frey](https://github.com/the-frey)
+## Technologies Used
 
-## Contributing
+- Rust
+- CosmWasm
+- CW-721 Standard for NFTs
 
-If you are working on an NFT project as well and wish to give input, please raise issues and/or PRs.
-Additional maintainers can be added if they show commitment to the project.
+## Errors and Issues
 
-You can also join the `#nfts` channel on [CosmWasm Discord](https://docs.cosmwasm.com/chat)
-for more interactive discussion on these themes.
+The codebase contains several issues that need to be addressed for full functionality:
 
+- **Deserialization Errors**: The code often fails to deserialize storage data into the desired types. This occurs in functions like `query_config`, `read_token_info`, and `get_owner_of_token`.
+- **Data Consistency**: The data saved in storage sometimes is inconsistent with the data being used, as seen in the debug logs.
+- **Incomplete Logic**: Functions like `query_number_of_tokens_owned_by`, `get_all_approvals_for_token`, and `get_all_tokens_by_owner` are incomplete and contain placeholder code.
+- **State Management**: The contract's state isn't properly updated in several scenarios like minting, transferring, and burning tokens.
+- **Debug Prints**: The code contains several debug prints which could be removed or converted to proper logging for production.
+- **Error Handling**: The code does not have robust error handling and debugging mechanisms in place. For instance, generic errors are thrown, which do not provide detailed context for debugging.
+- **Type Safety**: Some function parameters have loose types like `String` where more specific types like `Addr` could be used for better type safety.
+
+## Recommendations for Future Work
+
+- Fix the deserialization issues by ensuring that the data types and storage types match.
+- Complete the logic for all unfinished functions.
+- Implement robust error-handling and logging mechanisms.
+- Update the contract's state properly after each transaction.
+- Refactor code for better type safety and modularity.
+- Add unit tests and integration tests to validate the contract's behavior.

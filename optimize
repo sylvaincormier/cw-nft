@@ -1,2 +1,0 @@
-wasm-opt -Oz --output contract.wasm contract_original.wasm
-
